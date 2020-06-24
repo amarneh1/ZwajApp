@@ -1,0 +1,14 @@
+E:\Zwaj\ZwajApp.API\bin\Debug\netcoreapp2.1\ZwajApp.API.deps.json
+E:\Zwaj\ZwajApp.API\bin\Debug\netcoreapp2.1\ZwajApp.API.runtimeconfig.json
+E:\Zwaj\ZwajApp.API\bin\Debug\netcoreapp2.1\ZwajApp.API.runtimeconfig.dev.json
+E:\Zwaj\ZwajApp.API\bin\Debug\netcoreapp2.1\ZwajApp.API.dll
+E:\Zwaj\ZwajApp.API\bin\Debug\netcoreapp2.1\ZwajApp.API.pdb
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.csprojAssemblyReference.cache
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.csproj.CoreCompileInputs.cache
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.RazorAssemblyInfo.cache
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.RazorAssemblyInfo.cs
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.AssemblyInfoInputs.cache
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.AssemblyInfo.cs
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.RazorTargetAssemblyInfo.cache
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.dll
+E:\Zwaj\ZwajApp.API\obj\Debug\netcoreapp2.1\ZwajApp.API.pdb
