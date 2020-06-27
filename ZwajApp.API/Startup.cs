@@ -12,6 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ZwajApp.API.Data;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace ZwajApp.API
 {
@@ -30,6 +33,19 @@ namespace ZwajApp.API
             services.AddDbContext<DataContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
+            services.AddScoped<IAuthRepository,AuthRepository>();
+            //Authentication Middleware
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(Options=>{      
+                Options.TokenValidationParameters = new TokenValidationParameters{
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                    ValidateIssuer= false,
+                    ValidateAudience= false
+
+                };
+            });
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +63,7 @@ namespace ZwajApp.API
             //app.UseHttpsRedirection();
             //Allow Any Web Site To Enter My Api we can change this to specified Web site
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
