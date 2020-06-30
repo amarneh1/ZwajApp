@@ -14,7 +14,7 @@ namespace ZwajApp.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        
+
         private readonly DataContext _context;
         public ValuesController(DataContext context)
         {
@@ -23,32 +23,33 @@ namespace ZwajApp.API.Controllers
         // GET http://localhost:5000/api/values
         // GET api/values
         [HttpGet]
-       /*  public IActionResult GetValues()
-        {
-            var values=_context.Values.ToList();
-            return Ok(values);
-        } */
+        /*  public IActionResult GetValues()
+         {
+             var values=_context.Values.ToList();
+             return Ok(values);
+         } */
 
-        public async Task <IActionResult> GetValues()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetValues()
         {
-            var values= await _context.Values.ToListAsync();
+            var values = await _context.Values.ToListAsync();
             return Ok(values);
         }
-        
+
         [AllowAnonymous]
         // GET api/values/5
         [HttpGet("{id}")]
-       /*  public IActionResult GetValue(int id)
-        {
-            var value= _context.Values.FirstOrDefault(x=>x.id==id);
-            return Ok(value);
-        } */
+        /*  public IActionResult GetValue(int id)
+         {
+             var value= _context.Values.FirstOrDefault(x=>x.id==id);
+             return Ok(value);
+         } */
 
-        public async Task <IActionResult> GetValue(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            var value= await _context.Values.FirstOrDefaultAsync(x=>x.id==id);
+            var value = await _context.Values.FirstOrDefaultAsync(x => x.id == id);
             return Ok(value);
-        } 
+        }
 
 
         // POST api/values
