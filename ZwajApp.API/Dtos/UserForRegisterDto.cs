@@ -7,6 +7,7 @@ namespace ZwajApp.API.Dtos
         [Required]
         public string Username { get; set; }
         [StringLength(8,MinimumLength= 4,ErrorMessage="يجب انا لا تزيد كلمة السر عن8 ولا تقل عن 4")]
+        [Required]
         public string Password { get; set; }
     }
 }

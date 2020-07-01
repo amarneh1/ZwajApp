@@ -16,8 +16,10 @@ export class NavComponent implements OnInit {
   login (){
     //console.log(this.model);
     this.authService.login(this.model).subscribe(
+      
       next=>{console.log('تم الدخول بنجاح')},
-      errpr=>{console.log('فشل في الدخول')}
+      // error=>{console.log('فشل في الدخول')}
+      error=>{console.log(error)}
     )
   }
 
