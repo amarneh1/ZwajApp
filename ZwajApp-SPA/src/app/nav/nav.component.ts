@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_Services/auth.service';
+import { AlertifyService } from '../_Services/alertify.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,30 +8,36 @@ import { AuthService } from '../_Services/auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  model: any ={};
-  constructor(private authService:AuthService) { }
+  model: any = {};
+  constructor(public authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
 
-  login (){
+  login() {
     //console.log(this.model);
     this.authService.login(this.model).subscribe(
-      
-      next=>{console.log('تم الدخول بنجاح')},
+      next => { this.alertify.success('تم الدخول بنجاح') },
+      error => { this.alertify.error(error) }
+      //next=>{console.log('تم الدخول بنجاح')},
       // error=>{console.log('فشل في الدخول')}
-      error=>{console.log(error)}
+      //error=>{console.log(error)}
     )
   }
 
-  loggedIn(){
-    const token = localStorage.getItem('token');
-    return !! token
+  // loggedIn(){
+  //   const token = localStorage.getItem('token');
+  //   return !! token
+  // }
+
+  loggedIn() {
+    return this.authService.loggedIn();
   }
 
-  loggedOut(){
+  loggedOut() {
     localStorage.removeItem('token');
-    console.log('تم الخروج')
+    this.alertify.message('تم الخروج')
+    //console.log('تم الخروج')
   }
 
 }
