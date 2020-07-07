@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using ZwajApp.API.Helpers;
+using AutoMapper;
 
 namespace ZwajApp.API
 {
@@ -35,9 +36,15 @@ namespace ZwajApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(option => {
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddCors();
+            services.AddAutoMapper();
+            services.AddTransient<TrialData>();
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IZwajRepository,ZwajRepository>();
             //Authentication Middleware
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(Options=>{      
@@ -53,7 +60,7 @@ namespace ZwajApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, TrialData trialData)
         {
             // StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe:SecretKey").Value);
             if (env.IsDevelopment())
@@ -80,6 +87,7 @@ namespace ZwajApp.API
 
             //app.UseHttpsRedirection();
             //Allow Any Web Site To Enter My Api we can change this to specified Web site
+            //trialData.TrialUsers();
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseMvc();
