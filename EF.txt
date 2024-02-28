@@ -1,0 +1,17 @@
+بناء قاعدة البيانات 
+
+لعرض كافة عناصر ال EF
+dotnet ef -h
+
+نقوم بكتابة السطر التالي لعمل ترحيل حيث ان ال DbCreate 
+هي اسم الـ migrations 
+dotnet ef migrations add DbCreate
+
+اذا كانت قاعدة البيانات موجودة قم بالتعيدل عليها بناء على الكلاسات واذا لم تكن موجودة قم ببناءها
+dotnet ef database update 
+
+عند اضافة اي موديل نقوم بعمل Migrations
+dotnet ef migrations add CreateUserEntity   
+و
+حفظ في قاعدة البيانات
+dotnet ef database update

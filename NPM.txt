@@ -1,0 +1,12 @@
+Download or update package
+npm install @angular/platform-browser@6.1.10
+
+Download Bootstrap and fontawesome
+npm install bootstrap@4.1.1 font-awesome@4.7.0 --save
+we use save to add this package.json so if any one use the app will download it with its version
+
+Uninstall Packagce 
+npm uninstall bootstrap
+
+install backage (use --save) to save inside package.json file
+npm i bootstrap-v4-rtl@4.1.1-0 --save
