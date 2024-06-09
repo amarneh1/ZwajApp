@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -36,9 +37,15 @@ namespace ZwajApp.API
         {
             //Download dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 2.1.4
             services.AddDbContext<DataContext>(x=>x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(options=>{
+                options.SerializerSettings.ReferenceLoopHandling=Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });;
             services.AddCors();
+            services.AddAutoMapper();
+            services.AddTransient<TrialData>();
             services.AddScoped<IAuthRepository,AuthRepository>();
+              services.AddScoped<IZwajRepository,ZwajRepository>();
             //Authentication Middleware
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options =>
             {
@@ -54,7 +61,7 @@ namespace ZwajApp.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,TrialData trialData)
         {
             if (env.IsDevelopment())
             {
@@ -78,7 +85,7 @@ namespace ZwajApp.API
                 // app.UseHsts();
             }
 
-            //trialData.TrialUsers();
+            // trialData.TrialUsers();
             // app.UseHttpsRedirection();
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
